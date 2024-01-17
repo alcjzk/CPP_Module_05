@@ -50,6 +50,19 @@ void Bureaucrat::signForm(AForm& form) const
     }
 }
 
+void Bureaucrat::executeForm(AForm& form) const
+{
+    try
+    {
+        form.execute(*this);
+        std::cout << *this << " executed " << form << '\n';
+    }
+    catch (const std::exception& error)
+    {
+        std::cout << *this << " couldn't execute " << form << ", because " << error.what() << '.\n';
+    }
+}
+
 unsigned int Bureaucrat::getGrade() const
 {
     return _grade;
