@@ -19,8 +19,8 @@ class Form
 
         ~Form() = default;
         Form(const std::string& name = "Unnamed Form",
-             const unsigned int sign_require_grade = Bureaucrat::GRADE_LOWEST,
-             const unsigned int execute_require_grade = Bureaucrat::GRADE_LOWEST);
+             unsigned int sign_require_grade = Bureaucrat::GRADE_LOWEST,
+             unsigned int execute_require_grade = Bureaucrat::GRADE_LOWEST);
         Form(const Form&) = default;
         Form(Form&&) = delete;
 

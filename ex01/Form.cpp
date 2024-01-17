@@ -11,8 +11,8 @@ const char* Form::GradeTooLowException::what() const noexcept
 }
 
 Form::Form(const std::string& name = "Unnamed Form",
-           const unsigned int sign_required_grade = Bureaucrat::GRADE_LOWEST,
-           const unsigned int execute_required_grade = Bureaucrat::GRADE_LOWEST)
+           unsigned int sign_required_grade = Bureaucrat::GRADE_LOWEST,
+           unsigned int execute_required_grade = Bureaucrat::GRADE_LOWEST)
     : _name(name), _sign_required_grade(sign_required_grade),
       _execute_required_grade(execute_required_grade)
 {
@@ -59,6 +59,6 @@ std::ostream& operator<<(std::ostream& os, const Form& form)
 {
     os << form.getName() << "(" << (form.getIsSigned() ? "" : "not ") << "signed)";
     os << " requires a grade of at least " << form.getSignRequiredGrade() << " to be signed,";
-    os << " and a grade of at least " << form.getExecuteRequiredGrade() << " to be executed.\n";
+    os << " and a grade of at least " << form.getExecuteRequiredGrade() << " to be executed.";
     return os;
 }

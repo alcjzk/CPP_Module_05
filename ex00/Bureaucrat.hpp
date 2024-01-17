@@ -21,7 +21,8 @@ class Bureaucrat
         };
 
         ~Bureaucrat();
-        Bureaucrat(const std::string& name = "Unnamed Bureaucrat", unsigned int grade = GRADE_LOWEST);
+        Bureaucrat(const std::string& name = "Unnamed Bureaucrat",
+                   unsigned int grade = GRADE_LOWEST);
         Bureaucrat(const Bureaucrat& other);
         Bureaucrat(Bureaucrat&&) = delete;
 

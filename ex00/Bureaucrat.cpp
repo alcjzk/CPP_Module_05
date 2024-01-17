@@ -2,12 +2,12 @@
 
 const char* Bureaucrat::GradeTooHighException::what() const noexcept
 {
-    return "Grade is too high!";
+    return "grade is too high";
 }
 
 const char* Bureaucrat::GradeTooLowException::what() const noexcept
 {
-    return "Grade is too low!";
+    return "grade is too low";
 }
 
 Bureaucrat::~Bureaucrat()
@@ -55,5 +55,5 @@ void Bureaucrat::validateGrade(unsigned int grade)
 
 std::ostream& operator<<(std::ostream& os, const Bureaucrat& bureaucrat)
 {
-    return os << bureaucrat.getName() << ", bureaucrat grade " << bureaucrat.getGrade() << '\n';
+    return os << bureaucrat.getName() << ", bureaucrat grade " << bureaucrat.getGrade();
 }
