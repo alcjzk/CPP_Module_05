@@ -1,3 +1,5 @@
+#include <iostream>
+#include "Form.hpp"
 #include "Bureaucrat.hpp"
 
 const char* Bureaucrat::GradeTooHighException::what() const noexcept
@@ -33,6 +35,19 @@ void Bureaucrat::decrementGrade()
 {
     validateGrade(_grade + 1);
     _grade++;
+}
+
+void Bureaucrat::signForm(Form& form) const
+{
+    try
+    {
+        form.beSigned(*this);
+        std::cout << *this << " signed " << form << '\n';
+    }
+    catch (const std::exception& error)
+    {
+        std::cout << *this << " couldn't sign " << form << " because " << error.what() << ".\n";
+    }
 }
 
 unsigned int Bureaucrat::getGrade() const
