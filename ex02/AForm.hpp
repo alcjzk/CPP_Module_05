@@ -18,10 +18,6 @@ class AForm
         };
 
         virtual ~AForm() = default;
-        AForm(const std::string& name = "Unnamed Form",
-             unsigned int sign_require_grade = Bureaucrat::GRADE_LOWEST,
-             unsigned int execute_require_grade = Bureaucrat::GRADE_LOWEST);
-        AForm(const AForm&) = default;
         AForm(AForm&&) = delete;
 
         AForm& operator=(const AForm&) = delete;
@@ -36,6 +32,11 @@ class AForm
         virtual void        execute(const Bureaucrat& executor) const = 0;
 
     protected:
+        AForm(const std::string& name = "Unnamed Form",
+             unsigned int sign_require_grade = Bureaucrat::GRADE_LOWEST,
+             unsigned int execute_require_grade = Bureaucrat::GRADE_LOWEST);
+        AForm(const AForm&) = default;
+
         static void         validateGrade(unsigned int grade);
 
     private:
