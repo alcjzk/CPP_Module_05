@@ -31,6 +31,8 @@ class Form
         const unsigned int  getSignRequiredGrade() const;
         const unsigned int  getExecuteRequiredGrade() const;
 
+        void                beSigned(const Bureaucrat& bureaucrat);
+
     private:
         const std::string   _name;
         bool                _is_signed = false;
