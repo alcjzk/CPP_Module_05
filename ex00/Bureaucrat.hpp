@@ -23,7 +23,7 @@ class Bureaucrat
         ~Bureaucrat();
         Bureaucrat(const std::string& name = "Unnamed Bureaucrat", unsigned int grade = GRADE_LOWEST);
         Bureaucrat(const Bureaucrat& other);
-        Bureaucrat(Bureaucrat&& other) = delete;
+        Bureaucrat(Bureaucrat&&) = delete;
 
         void incrementGrade();
         void decrementGrade();
@@ -31,8 +31,8 @@ class Bureaucrat
         unsigned int        getGrade() const;
         const std::string&  getName() const;
 
-        Bureaucrat& operator=(const Bureaucrat& other) = delete;
-        Bureaucrat& operator=(Bureaucrat&& other) = delete;
+        Bureaucrat& operator=(const Bureaucrat&) = delete;
+        Bureaucrat& operator=(Bureaucrat&&) = delete;
 
     private:
         const std::string   _name;
