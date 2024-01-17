@@ -1,13 +1,41 @@
 #pragma once
 
+#include <exception>
+#include <string>
+
 class Bureaucrat
 {
     public:
-        ~Bureaucrat();
-        Bureaucrat();
-        Bureaucrat(const Bureaucrat& other);
-        Bureaucrat(Bureaucrat&& other);
+        static const unsigned int GRADE_HIGHEST = 1;
+        static const unsigned int GRADE_LOWEST = 150;
 
-        Bureaucrat& operator=(const Bureaucrat& other);
-        Bureaucrat& operator=(Bureaucrat&& other);
+        class GradeTooHighException : public std::exception
+        {
+            virtual const char* what() const noexcept override;
+        };
+
+        class GradeTooLowException : public std::exception
+        {
+            virtual const char* what() const noexcept override;
+        };
+
+        ~Bureaucrat();
+        Bureaucrat(const std::string& name = "Unnamed Bureaucrat", unsigned int grade = GRADE_LOWEST);
+        Bureaucrat(const Bureaucrat& other);
+        Bureaucrat(Bureaucrat&& other) = delete;
+
+        void incrementGrade();
+        void decrementGrade();
+
+        unsigned int        getGrade() const;
+        const std::string&  getName() const;
+
+        Bureaucrat& operator=(const Bureaucrat& other) = delete;
+        Bureaucrat& operator=(Bureaucrat&& other) = delete;
+
+    private:
+        const std::string   _name;
+        unsigned int        _grade;
+
+        static void         validateGrade(unsigned int grade);
 };
