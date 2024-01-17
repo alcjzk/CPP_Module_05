@@ -16,7 +16,8 @@ Form::Form(const std::string& name = "Unnamed Form",
     : _name(name), _sign_required_grade(sign_required_grade),
       _execute_required_grade(execute_required_grade)
 {
-    // TODO:
+    validateGrade(sign_required_grade);
+    validateGrade(execute_required_grade);
 }
 
 const std::string& Form::getName() const
@@ -37,4 +38,12 @@ const unsigned int Form::getSignRequiredGrade() const
 const unsigned int Form::getExecuteRequiredGrade() const
 {
     return _execute_required_grade;
+}
+
+void Form::validateGrade(unsigned int grade)
+{
+    if (grade < Bureaucrat::GRADE_HIGHEST)
+        throw GradeTooHighException();
+    if (grade > Bureaucrat::GRADE_LOWEST)
+        throw GradeTooLowException();
 }

@@ -36,4 +36,6 @@ class Form
         bool                _is_signed = false;
         const unsigned int  _sign_required_grade;
         const unsigned int  _execute_required_grade;
+
+        static void         validateGrade(unsigned int grade);
 };
