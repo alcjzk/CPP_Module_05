@@ -52,3 +52,8 @@ void Bureaucrat::validateGrade(unsigned int grade)
     if (grade < GRADE_HIGHEST)
         throw GradeTooHighException();
 }
+
+std::ostream& operator<<(std::ostream& os, const Bureaucrat& bureaucrat)
+{
+    return os << bureaucrat.getName() << ", bureaucrat grade " << bureaucrat.getGrade() << '\n';
+}
