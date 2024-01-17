@@ -17,6 +17,11 @@ class AForm
             virtual const char* what() const noexcept override;
         };
 
+        class NotSignedException : public std::exception
+        {
+            virtual const char* what() const noexcept override;
+        };
+
         virtual ~AForm() = default;
         AForm(AForm&&) = delete;
 
@@ -36,6 +41,8 @@ class AForm
              unsigned int sign_require_grade = Bureaucrat::GRADE_LOWEST,
              unsigned int execute_require_grade = Bureaucrat::GRADE_LOWEST);
         AForm(const AForm&) = default;
+
+        void                validateExecution(const Bureaucrat& executor) const;
 
         static void         validateGrade(unsigned int grade);
 

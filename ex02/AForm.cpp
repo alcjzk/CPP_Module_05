@@ -10,6 +10,11 @@ const char* AForm::GradeTooLowException::what() const noexcept
     return "grade is too low";
 }
 
+const char* AForm::NotSignedException::what() const noexcept
+{
+    return "the form is not signed";
+}
+
 AForm::AForm(const std::string& name,
            unsigned int sign_required_grade,
            unsigned int execute_required_grade)
@@ -45,6 +50,14 @@ void AForm::beSigned(const Bureaucrat& bureaucrat)
     if (bureaucrat.getGrade() > _sign_required_grade)
         throw GradeTooLowException();
     _is_signed = true;
+}
+
+void AForm::validateExecution(const Bureaucrat& bureaucrat) const
+{
+    if (!_is_signed)
+        throw NotSignedException();
+    if (bureaucrat.getGrade() > _execute_required_grade)
+        throw GradeTooLowException();
 }
 
 void AForm::validateGrade(unsigned int grade)
