@@ -1,10 +1,30 @@
 #include "Form.hpp"
 
 Form::Form(const std::string& name = "Unnamed Form",
-           const unsigned int sign_require_grade = Bureaucrat::GRADE_LOWEST,
-           const unsigned int execute_require_grade = Bureaucrat::GRADE_LOWEST)
-    : _name(name), _sign_require_grade(sign_require_grade),
-      _execute_require_grade(execute_require_grade)
+           const unsigned int sign_required_grade = Bureaucrat::GRADE_LOWEST,
+           const unsigned int execute_required_grade = Bureaucrat::GRADE_LOWEST)
+    : _name(name), _sign_required_grade(sign_required_grade),
+      _execute_required_grade(execute_required_grade)
 {
     // TODO:
+}
+
+const std::string& Form::getName() const
+{
+    return _name;
+}
+
+bool Form::getIsSigned() const
+{
+    return _is_signed;
+}
+
+const unsigned int Form::getSignRequiredGrade() const
+{
+    return _sign_required_grade;
+}
+
+const unsigned int Form::getExecuteRequiredGrade() const
+{
+    return _execute_required_grade;
 }
