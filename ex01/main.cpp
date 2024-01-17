@@ -4,69 +4,91 @@
 #include <iostream>
 #include <exception>
 #include "Bureaucrat.hpp"
+#include "Form.hpp"
 
 int main()
 {
-    Bureaucrat bureaucrat_default; // <- Can be default constructed
-    Bureaucrat bureaucrat_copied(bureaucrat_default); // <- Can be copy constructed
+    Form form_default; // <- Can be default constructed.
+    Form form_copy(form_default); // <- Can be copy constructed.
 
-    // Since the bureaucrats name is constant, assignent operations & move construction is not
-    // a valid operation. These are explicitly deleted, so uncommenting any of the lines below
+    // Since the form contains constant data members, assignent operations & move construction is
+    // not a valid operation. These are explicitly deleted, so uncommenting any of the lines below
     // will not compile.
 
-    // Bureaucrat bureaucrat_moved(std::move(bureaucrat_default));
-    // Bureaucrat bureaucrat_copy_assigned; bureaucrat_copy_assigned = bureaucrat_default;
-    // Bureaucrat bureaucrat_move_assigned;
-        // bureaucrat_move_assigned = std::move(bureaucrat_default);
+    // Form form_moved(std::move(form_default));
+    // Form form_copy_assigned; form_copy_assigned = form_default;
+    // Form form_move_assigned;
+    //     form_move_assigned = std::move(form_default);
 
-    Bureaucrat bureaucrat_named("Named Bureaucrat", 50); // <- Can be constructed with values.
+    Form form_named("Named Form", 12, 34); // <- Can be constructed with values.
 
     // Getters
-    assert(bureaucrat_named.getName() == "Named Bureaucrat");
-    assert(bureaucrat_named.getGrade() == 50);
+    assert(form_named.getName() == "Named Form");
+    assert(form_named.getSignRequiredGrade() == 12);
+    assert(form_named.getExecuteRequiredGrade() == 34);
+    assert(form_named.getIsSigned() == false);
 
     // Stream insertion
-    std::cout << bureaucrat_default;
-    std::cout << bureaucrat_named;
+    std::cout << form_default << '\n';
+    std::cout << form_named << '\n';
 
-    // Constructing a bureaucrat with too low of a grade throws the appropriate exception.
+    // Constructing a form with a grade out of bounds throws the appropriate exception.
     try {
-        Bureaucrat bureaucrat_too_low("Invalid bureaucrat", 151);
+        Form invalid_form("Invalid Form", 0, 1);
         assert(false);
     }
-    catch (const Bureaucrat::GradeTooLowException&) {}
+    catch (const Form::GradeTooHighException&) {}
 
-    // Constructing a bureaucrat with too high of a grade throws the appropriate exception.
     try {
-        Bureaucrat bureaucrat_too_high("Invalid bureaucrat", 0);
+        Form invalid_form("Invalid Form", 1, 0);
         assert(false);
     }
-    catch (const Bureaucrat::GradeTooHighException&) {}
+    catch (const Form::GradeTooHighException&) {}
 
-    // Decrementing the bureaucrats grade too much throws the appropriate exception.
     try {
-        Bureaucrat bureaucrat_low("Invalid bureaucrat", 150);
-        assert(true);
-        bureaucrat_low.decrementGrade();
+        Form invalid_form("Invalid Form", 151, 1);
         assert(false);
     }
-    catch (const Bureaucrat::GradeTooLowException&) {}
+    catch (const Form::GradeTooLowException&) {}
 
-    // Incrementing the bureaucrats grade too much throws the appropriate exception.
     try {
-        Bureaucrat bureaucrat_high("Invalid bureaucrat", 1);
-        assert(true);
-        bureaucrat_high.incrementGrade();
+        Form invalid_form("Invalid Form", 1, 151);
         assert(false);
     }
-    catch (const Bureaucrat::GradeTooHighException&) {}
+    catch (const Form::GradeTooLowException&) {}
 
-    // Bureaucrat exceptions are catchable as standard exceptions.
-    try   { throw Bureaucrat::GradeTooHighException(); }
-    catch (const std::exception&) {}
+    Bureaucrat low_grade_bureaucrat("Low Grade Bureaucrat", 150);
+    Bureaucrat high_grade_bureaucrat("High Grade Bureaucrat", 1);
 
-    try   { throw Bureaucrat::GradeTooLowException(); }
-    catch (const std::exception&) {}
+    // Sign via Form::beSigned
+    {
+        Form high_grade_form("High Grade Form", 1, 1);
+
+        // A bureaucrat with too low of a grade cannot sign the form
+        try {
+            high_grade_form.beSigned(low_grade_bureaucrat);
+            assert(false);
+        }
+        catch (const Form::GradeTooLowException&) {}
+        assert(high_grade_form.getIsSigned() == false);
+
+        // A bureaucrat with a high enough grade can sign the form
+        high_grade_form.beSigned(high_grade_bureaucrat);
+        assert(high_grade_form.getIsSigned() == true);
+    }
+
+    // Sign via Bureaucrat::signForm
+    {
+        Form high_grade_form("High Grade Form", 1, 1);
+
+        // A bureaucrat with too low of a grade cannot sign the form
+        low_grade_bureaucrat.signForm(high_grade_form);
+        assert(high_grade_form.getIsSigned() == false);
+
+        // A bureaucrat with a high enough grade can sign the form
+        high_grade_bureaucrat.signForm(high_grade_form);
+        assert(high_grade_form.getIsSigned() == true);
+    }
 
     return EXIT_SUCCESS;
 }

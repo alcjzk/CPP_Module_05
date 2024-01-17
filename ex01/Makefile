@@ -7,7 +7,7 @@ CC 		= c++
 CFLAGS 	= -MP -MMD -I$(SRC_DIR) -Wall -Wextra -Werror -Wpedantic -g -std=c++17
 SHELL	= /bin/sh
 
-SRCS	= main.cpp Bureaucrat.cpp
+SRCS	= main.cpp Bureaucrat.cpp Form.cpp
 
 all: $(NAME)
 
