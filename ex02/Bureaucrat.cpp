@@ -1,5 +1,5 @@
 #include <iostream>
-#include "Form.hpp"
+#include "AForm.hpp"
 #include "Bureaucrat.hpp"
 
 const char* Bureaucrat::GradeTooHighException::what() const noexcept
@@ -37,7 +37,7 @@ void Bureaucrat::decrementGrade()
     _grade++;
 }
 
-void Bureaucrat::signForm(Form& form) const
+void Bureaucrat::signForm(AForm& form) const
 {
     try
     {

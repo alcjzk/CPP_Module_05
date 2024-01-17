@@ -1,16 +1,16 @@
-#include "Form.hpp"
+#include "AForm.hpp"
 
-const char* Form::GradeTooHighException::what() const noexcept
+const char* AForm::GradeTooHighException::what() const noexcept
 {
     return "grade is too high";
 }
 
-const char* Form::GradeTooLowException::what() const noexcept
+const char* AForm::GradeTooLowException::what() const noexcept
 {
     return "grade is too low";
 }
 
-Form::Form(const std::string& name,
+AForm::AForm(const std::string& name,
            unsigned int sign_required_grade,
            unsigned int execute_required_grade)
     : _name(name), _sign_required_grade(sign_required_grade),
@@ -20,34 +20,34 @@ Form::Form(const std::string& name,
     validateGrade(execute_required_grade);
 }
 
-const std::string& Form::getName() const
+const std::string& AForm::getName() const
 {
     return _name;
 }
 
-bool Form::getIsSigned() const
+bool AForm::getIsSigned() const
 {
     return _is_signed;
 }
 
-unsigned int Form::getSignRequiredGrade() const
+unsigned int AForm::getSignRequiredGrade() const
 {
     return _sign_required_grade;
 }
 
-unsigned int Form::getExecuteRequiredGrade() const
+unsigned int AForm::getExecuteRequiredGrade() const
 {
     return _execute_required_grade;
 }
 
-void Form::beSigned(const Bureaucrat& bureaucrat)
+void AForm::beSigned(const Bureaucrat& bureaucrat)
 {
     if (bureaucrat.getGrade() > _sign_required_grade)
         throw GradeTooLowException();
     _is_signed = true;
 }
 
-void Form::validateGrade(unsigned int grade)
+void AForm::validateGrade(unsigned int grade)
 {
     if (grade < Bureaucrat::GRADE_HIGHEST)
         throw GradeTooHighException();
@@ -55,7 +55,7 @@ void Form::validateGrade(unsigned int grade)
         throw GradeTooLowException();
 }
 
-std::ostream& operator<<(std::ostream& os, const Form& form)
+std::ostream& operator<<(std::ostream& os, const AForm& form)
 {
     os << form.getName() << " (" << (form.getIsSigned() ? "" : "not ") << "signed)";
     os << " requires a grade of at least " << form.getSignRequiredGrade() << " to be signed,";
