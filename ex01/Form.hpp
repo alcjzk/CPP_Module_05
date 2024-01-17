@@ -2,6 +2,7 @@
 
 #include <string>
 #include <exception>
+#include <ostream>
 #include "Bureaucrat.hpp"
 
 class Form
@@ -41,3 +42,5 @@ class Form
 
         static void         validateGrade(unsigned int grade);
 };
+
+std::ostream& operator<<(std::ostream& os, const Form& form);

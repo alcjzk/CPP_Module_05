@@ -54,3 +54,11 @@ void Form::validateGrade(unsigned int grade)
     if (grade > Bureaucrat::GRADE_LOWEST)
         throw GradeTooLowException();
 }
+
+std::ostream& operator<<(std::ostream& os, const Form& form)
+{
+    os << form.getName() << "(" << (form.getIsSigned() ? "" : "not ") << "signed)";
+    os << " requires a grade of at least " << form.getSignRequiredGrade() << " to be signed,";
+    os << " and a grade of at least " << form.getExecuteRequiredGrade() << " to be executed.\n";
+    return os;
+}
