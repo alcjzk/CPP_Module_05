@@ -1,5 +1,15 @@
 #include "Form.hpp"
 
+const char* Form::GradeTooHighException::what() const noexcept
+{
+    return "grade is too high";
+}
+
+const char* Form::GradeTooLowException::what() const noexcept
+{
+    return "grade is too low";
+}
+
 Form::Form(const std::string& name = "Unnamed Form",
            const unsigned int sign_required_grade = Bureaucrat::GRADE_LOWEST,
            const unsigned int execute_required_grade = Bureaucrat::GRADE_LOWEST)

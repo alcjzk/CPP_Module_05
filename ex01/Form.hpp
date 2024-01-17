@@ -1,11 +1,21 @@
 #pragma once
 
 #include <string>
+#include <exception>
 #include "Bureaucrat.hpp"
 
 class Form
 {
     public:
+        class GradeTooHighException : public std::exception
+        {
+            virtual const char* what() const noexcept override;
+        };
+        class GradeTooLowException : public std::exception
+        {
+            virtual const char* what() const noexcept override;
+        };
+
         ~Form() = default;
         Form(const std::string& name = "Unnamed Form",
              const unsigned int sign_require_grade = Bureaucrat::GRADE_LOWEST,
