@@ -13,7 +13,7 @@ AForm* Intern::makeForm(const std::string& form_name, const std::string& target)
         if (entry.name == form_name)
         {
             form = entry.createForm(target);
-            std::cout << "Intern creates " << form << '\n';
+            std::cout << "Intern creates " << *form << '\n';
             return form;
         }
     }
