@@ -59,7 +59,7 @@ void Bureaucrat::executeForm(AForm& form) const
     }
     catch (const std::exception& error)
     {
-        std::cout << *this << " couldn't execute " << form << ", because " << error.what() << '.\n';
+        std::cout << *this << " couldn't execute " << form << ", because " << error.what() << ".\n";
     }
 }
 
